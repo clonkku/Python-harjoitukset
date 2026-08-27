@@ -4,8 +4,8 @@
 
 ## Moduuli 1
 
-Tein tehtävä 1 ja 2
+Tein tehtävät 1 ja 2.
 
-## Moduuli 2
+## Moduuli 3
 
-Tein tehtävän 1, 2 ja 3
+Tein tehtävän 1, 2, 3, 4, 5 ja 6.
