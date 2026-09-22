@@ -1,4 +1,5 @@
 import time
+import random
 pelaajannimi = input("Mikä sinun nimesi on?\n")
 pelaajanikä = input(f"Hauska tavata {pelaajannimi}! Mikä sinun ikäsi on?\n")
 
@@ -8,6 +9,7 @@ def lisaaesine():
     esine = input("Minkä esineen haluat lisätä inventaarioon?: ")
     inventaario1.append(esine)
     return
+
 def inventaario():
     while True:
         print("=== Inventaario ===")
@@ -19,6 +21,7 @@ def inventaario():
         valinta = input("1. Takaisin päävalikkoon\nValitse:")
         if valinta == "1":
             break
+
 def lepaa():
     print("Menit nukkumaan...")
     uniaika = 5
@@ -26,8 +29,20 @@ def lepaa():
         time.sleep(1)
         print("zZzZzZzZ...")
         uniaika = uniaika - 1
-    print("Heräsit virkeänä! :)")
-    time.sleep(2)
+    if random.randint(1, 5) == 1:
+        print("Heräsit väsyneenä >:(")
+        print(r"""                .-""""""-.
+           .'  \\  //  '.
+          /   O      O   \ 
+         :                :
+         |                |  
+         :       __       :
+          \  .-"`  `"-.  /
+           '.          .'
+             '-......-'""")
+    else:
+        print("Heräsit virkeänä! :)")
+    time.sleep(3)
     return
 
 while True:
@@ -42,5 +57,4 @@ while True:
         inventaario()
     elif valinta == 3:
         lepaa()
-
 
