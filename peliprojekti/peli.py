@@ -118,7 +118,7 @@ while True:
     if valinta == 4:
         pelaaja.liiku
         if pelaaja.sijainti == keittio:
-
+            pelaaja.liiku(keittio)
         elif pelaaja.sijainti == olohuone:
             pelaaja.liiku(vessa)
 
