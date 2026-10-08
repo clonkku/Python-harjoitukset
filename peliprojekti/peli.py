@@ -50,6 +50,62 @@ def inventaario():
         if valinta == "1":
             break
 
+#Pelin tallennus
+def tallenna_peli():
+    with open("peliprojekti/save.txt", "w", encoding="utf-8") as tiedosto:
+        tiedosto.write(pelaaja.nimi + "\n")
+        tiedosto.write(pelaaja.sijainti.nimi + "\n")
+        tiedosto.write(str(huolto_laatikko_avattu) + "\n")
+        tiedosto.write(str(pohjapiirros_luettu) + "\n")
+        tiedosto.write(str(luukku_löytynyt) + "\n")
+        tiedosto.write(str(luukku_avattu) + "\n")
+        tiedosto.write(str(kellari_tutkittu) + "\n")
+        tiedosto.write(str(alkutekstit_luettu) + "\n")
+        
+        tiedosto.write("INVENTAARIO\n")
+        for esine in pelaaja.esinelista:
+            tiedosto.write(esine.nimi + "\n")
+    print("Peli tallennettu")
+
+#Pelin lataus
+def lataa_peli():
+    with open("peliprojekti/save.txt", "r", encoding="utf-8") as tiedosto:
+        rivit = tiedosto.readlines()
+
+    nimi = rivit[0].strip()
+    sijainti = rivit[1].strip()
+
+    huolto_laatikko_avattu = rivit[2].strip() == "True"
+    pohjapiirros_luettu = rivit[3].strip() == "True"
+    luukku_löytynyt = rivit[4].strip() == "True"
+    luukku_avattu = rivit[5].strip() == "True"
+    kellari_tutkittu = rivit[6].strip() == "True"
+    alkutekstit_luettu = rivit[7].strip() == "True"
+    ladattu_inventaario = []
+
+    for rivi in rivit[9:]:
+        esine = rivi.strip()
+
+        if esine == "vanha avain":
+            ladattu_inventaario.append(avaimet)
+
+        elif esine == "Einon kirje":
+            ladattu_inventaario.append(Einon_kirje)
+
+        elif esine == "vanha valokuva":
+            ladattu_inventaario.append(vanha_valokuva)
+
+        elif esine == "sorkkarauta":
+            ladattu_inventaario.append(sorkkarauta)
+
+        elif esine == "vanha vihko":
+            ladattu_inventaario.append(vanha_vihko)
+
+        elif esine == "Huolto laatikon avain":
+            ladattu_inventaario.append(huolto_avain)
+
+    return nimi, sijainti, huolto_laatikko_avattu, pohjapiirros_luettu, luukku_löytynyt, luukku_avattu, kellari_tutkittu, alkutekstit_luettu, ladattu_inventaario
+
 #Lepää funktio makuuhuoneen sänkyä varten
 def lepaa():
     print("Menit nukkumaan likaiseen ja pölyiseen sänkyyn...")
@@ -69,9 +125,7 @@ def lepaa():
 
     time.sleep(3)
 
-
 # Luodaan esineet
-
 avaimet = Esine("vanha avain", 10)
 Einon_kirje = Esine("Einon kirje", 5)
 vanha_valokuva = Esine("vanha valokuva", 20)
@@ -85,6 +139,7 @@ pohjapiirros_luettu = False
 luukku_löytynyt = False
 luukku_avattu = False
 kellari_tutkittu = False
+alkutekstit_luettu = False
 
 # Luodaan huoneet
 eteinen = Huone("Eteinen", None)
@@ -99,39 +154,99 @@ viimeinen_huone = Huone("Viimeinen huone", None)
 
 # Luodaan pelaaja ja sen inventaario
 inventaario1 = []
-
 pelaaja = Pelaaja(pelaajannimi, inventaario1, piha)
 
-#Pelin alku
-print(f"{pelaajannimi} saa kirjeen...")
-print("Hei.")
-time.sleep(1)
-print("Et tunne minua, mutta olen jättänyt sinulle mökin.")
-time.sleep(1)
-print("Älä kysy miksi.")
-time.sleep(1)
-print("Mökki sijaitsee järven rannalla, noin 40 km kaupungista.")
-time.sleep(1)
-print("Avaimet ovat postilaatikossa.")
-time.sleep(1)
-print("Yksi asia vielä:")
-time.sleep(1)
-print("Älä mene kellariin.")
-time.sleep(1)
-print("Terveisin,")
-time.sleep(1)
-print("Eino")
-time.sleep(2)
-print(f"{pelaajannimi} sanoo: 'Kuka ihme on Eino? Miksi hän jätti minulle mökin? Miksi en saa mennä kellariin?'")
-time.sleep(1)
-print(f"{pelaajannimi} sanoo: 'No, ei auta muu kuin mennä mökille ja selvittää asia.'")
-input("Paina enter jatkaaksesi...")
-print("Olet saapunut mökin pihalle.\n")
-print("Edessäsi on vanha mökki.")
-print("Vieressä on vaja.")
-print("Takana on metsä.")
+#Pelin aloitusvalikko
+print("1. Uusi peli")
+print("2. Jatka peliä")
+valinta = input("Valitse: ")
 
-print("Postilaatikko näyttää siltä, ettei sitä ole avattu ainakaan kymmeneen vuoteen.")
+#ladataan pelin tiedot save.txt kautta
+if valinta == "2":
+    nimi, sijainti, huolto_laatikko_avattu, pohjapiirros_luettu, luukku_löytynyt, luukku_avattu, kellari_tutkittu, alkutekstit_luettu, ladattu_inventaario = lataa_peli()
+
+    pelaaja.nimi = nimi
+    pelaaja.esinelista = ladattu_inventaario
+
+#Muunnetaan save.txt sijainnit muuttujiksi
+    if sijainti == "Piha":
+        pelaaja.sijainti = piha
+    elif sijainti == "Vaja":
+        pelaaja.sijainti = vaja
+    elif sijainti == "Eteinen":
+        pelaaja.sijainti = eteinen
+    elif sijainti == "Keittiö":
+        pelaaja.sijainti = keittio
+    elif sijainti == "Olohuone":
+        pelaaja.sijainti = olohuone
+    elif sijainti == "Makuuhuone":
+        pelaaja.sijainti = makuuhuone
+    elif sijainti == "Mökin takapiha":
+        pelaaja.sijainti = takapiha
+    elif sijainti == "Kellari":
+        pelaaja.sijainti = kellari
+    elif sijainti == "Viimeinen huone":
+        pelaaja.sijainti = viimeinen_huone
+
+    if sorkkarauta in pelaaja.esinelista:
+        vaja.esine = None
+    if vanha_vihko in pelaaja.esinelista:
+        olohuone.esine = None
+    if huolto_avain in pelaaja.esinelista:
+        makuuhuone.esine = None
+
+    print(f"Tervetuloa takaisin, {pelaaja.nimi}!")
+    print(f"Jatkat paikasta: {pelaaja.sijainti.nimi}")
+    input("Paina Enter jatkaaksesi...")
+
+elif valinta == "1":
+    # Luetaan pelin esittelyteksti tiedostosta
+    alkutekstit_luettu = True
+    with open("peliprojekti/intro.txt", "r", encoding="utf-8") as tiedosto:
+        intro = tiedosto.read()
+    print(intro)
+    input("Paina Enter jatkaaksesi...")
+
+    #Luetaan pelin ohjeet tiedostosta
+    with open("peliprojekti/ohjeet.txt", "r", encoding="utf-8") as tiedosto:
+        ohjeet = tiedosto.read()
+        print(ohjeet)
+        input("Paina Enter jatkaaksesi...")
+
+    #Pelin alku
+    print(f"{pelaajannimi} saa kirjeen...")
+    print("Hei.")
+    time.sleep(1)
+    print("Et tunne minua, mutta olen jättänyt sinulle mökin.")
+    time.sleep(1)
+    print("Älä kysy miksi.")
+    time.sleep(1)
+    print("Mökki sijaitsee järven rannalla, noin 40 km kaupungista.")
+    time.sleep(1)
+    print("Avaimet ovat postilaatikossa.")
+    time.sleep(1)
+    print("Yksi asia vielä:")
+    time.sleep(1)
+    print("Älä mene kellariin.")
+    time.sleep(1)
+    print("Terveisin,")
+    time.sleep(1)
+    print("Eino")
+    time.sleep(2)
+    print(f"{pelaajannimi} sanoo: 'Kuka ihme on Eino? Miksi hän jätti minulle mökin? Miksi en saa mennä kellariin?'")
+    time.sleep(1)
+    print(f"{pelaajannimi} sanoo: 'No, ei auta muu kuin mennä mökille ja selvittää asia.'")
+    input("Paina enter jatkaaksesi...")
+    print("Olet saapunut mökin pihalle.\n")
+    print("Edessäsi on vanha mökki.")
+    print("Vieressä on vaja.")
+    print("Takana on metsä.")
+    print("Postilaatikko näyttää siltä, ettei sitä ole avattu ainakaan kymmeneen vuoteen.")
+    input("Paina enter jatkaaksesi...")
+
+else:
+    print("Virheellinen valinta.")
+    exit()
 
 #Pääohjelman silmukka
 while True:
@@ -204,10 +319,18 @@ while True:
         print("2. Avaa kirjekuori")
         print("3. Lähde pois")
 
+    print("8. Näytä inventaario")
+    print("9. Tallenna peli")
     valinta = int(input("Valitse: "))
 
+#yleiset toiminnot
+    if valinta == 8:
+        inventaario()
+    elif valinta == 9:
+        tallenna_peli()
+
 #pihan toiminnot
-    if pelaaja.sijainti == piha:
+    elif pelaaja.sijainti == piha:
         if valinta == 1:
             if avaimet in pelaaja.esinelista:
                 print("Mökin ovi on lukossa. Sinulla on avaimet, joten avaat oven.")
@@ -220,9 +343,13 @@ while True:
             print("Pihalla ei näytä olevan mitään mielenkiintoista.")
             time.sleep(2)
         elif valinta == 3:
-            print("Tutkit postilaatikkoa ja löysit avaimet mökkiin.")
-            print("Avaimet lisättiin inventaarioosi.")
-            pelaaja.esinelista.append(avaimet)
+            if avaimet not in pelaaja.esinelista:
+                print("Tutkit postilaatikkoa ja löysit avaimet mökkiin.")
+                print("Avaimet lisättiin inventaarioosi.")
+                pelaaja.esinelista.append(avaimet)
+            else:
+                print("Postilaatikko on tyhjä.")
+            input("Paina enter jatkaaksesi...")
         elif valinta == 4:
             pelaaja.liiku(vaja)
         elif valinta == 5:
@@ -323,7 +450,7 @@ while True:
                 print("Kulmakarvasi kohoavat kun avaat seuraavan sivun.")
                 time.sleep(1)
                 print("----------------------------------")
-                print("KELLARI\nkellari kellari kellari\nÄLÄ AVAA ÄLÄ AVAA ÄLÄ AVAA\nseonsiellä\noven takana\nkellari\nkellari\nKELLARI\nälä avaa\nse ei ole putket\n se ei ole putket\nse ei ole putket\n....\nVaja.\nKatso vajasta.")          
+                print("KELLARI\nkellari kellari kellari\nÄLÄ AVAA ÄLÄ AVAA ÄLÄ AVAA\nseonsiellä\noven takana\nkellari\nkellari\nKELLARI\nälä avaa\nse ei ole putket\n se ei ole putket\nse ei ole putket\n....\nVaja.\nKatso vajasta.")
                 print("----------------------------------")
                 time.sleep(5)
                 print("Sivun alareunaan on piirretty kuva kellarin ovesta jossa on raapimajälkiä.")
@@ -380,7 +507,6 @@ while True:
         elif valinta == 2:
             if not luukku_löytynyt:
                 pelaaja.liiku(piha)
-
             elif luukku_löytynyt and not luukku_avattu:
                 if sorkkarauta in pelaaja.esinelista:
                     print("Tutkit metallista luukkua.")
@@ -399,7 +525,6 @@ while True:
                 else:
                     print("Luukku on jumissa.")
                     print("Tarvitsisit jonkin työkalun sen avaamiseen.")
-
             elif luukku_avattu:
                 print("Katsot pimeisiin portaisiin.")
                 time.sleep(2)
@@ -480,4 +605,3 @@ while True:
     elif pelaaja.sijainti == viimeinen_huone:
         if valinta == 1:
             print("Hups pääsitkin jo näin pitkälle...")
-
