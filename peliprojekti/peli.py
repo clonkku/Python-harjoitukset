@@ -3,7 +3,7 @@ import random
 pelaajannimi = input("Mikä sinun nimesi on?\n")
 pelaajanikä = input(f"Hauska tavata {pelaajannimi}! Mikä sinun ikäsi on?\n")
 
-
+#Pelaaja luokka
 class Pelaaja:
     def __init__(self, nimi, esinelista, sijainti):
         self.nimi = nimi
@@ -21,19 +21,19 @@ class Pelaaja:
         else:
             print("Tässä huoneessa ei ole esinettä.")
 
-
+#Huone luokka
 class Huone:
     def __init__(self, nimi, esine):
         self.nimi = nimi
         self.esine = esine
 
-
+#Esine luokka
 class Esine:
     def __init__(self, nimi, paino):
         self.nimi = nimi
         self.paino = paino
 
-
+#Inventaario funktio. Ei käytössä ainakaan vielä
 def inventaario():
     while True:
         print("=== Inventaario ===")
@@ -46,9 +46,10 @@ def inventaario():
         if valinta == "1":
             break
 
+#Lepää funktio makuuhuoneen sänkyä varten
 def lepaa():
     print("Menit nukkumaan likaiseen ja pölyiseen sänkyyn...")
-    uniaika = 5
+    uniaika = 4
     while uniaika != 0:
         time.sleep(1)
         print("zZzZzZzZ...")
@@ -73,6 +74,7 @@ sorkkarauta = Esine("sorkkarauta", 1500)
 vanha_vihko = Esine("vanha vihko", 150)
 huolto_avain = Esine("Huolto laatikon avain", 200)
 
+#Luodaan edistymisehdot
 huolto_laatikko_avattu = False
 pohjapiirros_luettu = False
 luukku_löytynyt = False
@@ -90,11 +92,12 @@ takapiha = Huone("Mökin takapiha", None)
 kellari = Huone("Kellari", None)
 viimeinen_huone = Huone("Viimeinen huone", None)
 
-# Luodaan pelaaja
+# Luodaan pelaaja ja sen inventaario
 inventaario1 = []
 
 pelaaja = Pelaaja(pelaajannimi, inventaario1, piha)
 
+#Pelin alku
 print(f"{pelaajannimi} saa kirjeen...")
 print("Hei.")
 time.sleep(1)
@@ -124,12 +127,15 @@ print("Vieressä on vaja.")
 print("Takana on metsä.")
 
 print("Postilaatikko näyttää siltä, ettei sitä ole avattu ainakaan kymmeneen vuoteen.")
+
+#Pääohjelman silmukka
 while True:
     print("\n=== Päävalikko ===")
     print(f"Olet paikassa: {pelaaja.sijainti.nimi}")
     if pelaaja.sijainti.esine is not None:
         print(f"paikassa on esine: {pelaaja.sijainti.esine.nimi}")
 
+#Luodaan kaikkien sijaintien valintavaihtoehdot
     if pelaaja.sijainti == piha:
         print("1. Mene mökkiin")
         print("2. Tutki pihaa")
@@ -465,9 +471,8 @@ while True:
         else:
             print("Virheellinen valinta.")
 
-"""Luo luokat: pelaaja, huone ja esine
-esineiden ominaisuuksia ovat esim. nimi ja paino
-pelaajan ominaisuuksia ovat ainakin nimi, lista hallussa olevista esineistä ja sijainti (huone, missä pelaaja kulloinkin on)
-huoneen ominaisuuksia ovat nimi ja mahdollisesti esine
-kun ohjelma käynnistetään, luodaan pelaajaolio ja muutama esine ja huone
-pelaajan toimintoja ovat liikkuminen ja esineen kerääminen (ohjelman käyttäjä voi suorittaa niitä pelin valikosta, päivitä valikkoa tarpeen mukaan)"""
+#Viimeisen huoneen toiminnot WIP
+    elif pelaaja.sijainti == viimeinen_huone:
+        if valinta == 1:
+            print("Hups pääsitkin jo näin pitkälle...")
+
