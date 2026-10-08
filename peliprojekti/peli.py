@@ -1,5 +1,6 @@
 import time
 import random
+
 pelaajannimi = input("Mikä sinun nimesi on?\n")
 pelaajanikä = input(f"Hauska tavata {pelaajannimi}! Mikä sinun ikäsi on?\n")
 
@@ -37,12 +38,15 @@ class Esine:
 def inventaario():
     while True:
         print("=== Inventaario ===")
-        if len(inventaario1) == 0:
-            print("inventaario on tyhjä!")
-        else:
-            print(inventaario1)
 
-        valinta = input("1. Takaisin päävalikkoon\nValitse:")
+        if len(pelaaja.esinelista) == 0:
+            print("Inventaario on tyhjä!")
+        else:
+            for esine in pelaaja.esinelista:
+                print(f"{esine.nimi}, paino: {esine.paino} g")
+
+        valinta = input("1. Takaisin päävalikkoon\nValitse: ")
+
         if valinta == "1":
             break
 
@@ -62,6 +66,7 @@ def lepaa():
         exit()
     else:
         print("Heräsit virkeänä! :)")
+
     time.sleep(3)
 
 
