@@ -1,0 +1,9 @@
+Peli toimii numerovalinnoilla
+Kirjoita valinnan numero ja paina Enter.
+
+Voit liikkua eri paikkojen välillä ja tutkia ympäristöä.
+Pelin eteneminen vaatii tiettyjen esineiden löytämistä.
+
+Esineitä voi kerätä ja käyttää myöhemmin pelissä.
+
+Yritä selvittää mökin salaisuus....
