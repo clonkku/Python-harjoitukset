@@ -258,10 +258,13 @@ while True:
                 print("Paperin alareunassa on pieni piirros mökistä")
                 print("Piirroksessa on kellarin kohdalla ympyrä")
                 print("Sen vieressä lukee pienellä käsialalla: 'etsi toinen reitti.'")
+                input("Paina enter jatkaaksesi...")
             else:
                 print("Laatikko on lukossa. Lukko näyttää vanhalta mutta melko tukevalta.")
+                input("Paina enter jatkaaksesi...")
         elif valinta == 3:
             print("sanot 'pyh onpa likainen sorkkarauta' ja pyyhit sen pölystä ja ruosteesta. Se näyttää käyttökelpoiselta")
+            time.sleep(1)
             pelaaja.keraa_esine()
         elif valinta == 4:
             pelaaja.liiku(piha)
