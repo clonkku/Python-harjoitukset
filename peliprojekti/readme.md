@@ -1,4 +1,4 @@
-# Mysteerimökki
+# Mysteerimökki  - Vili Illikainen
 
 ## Pelin idea ja tavoite
 
