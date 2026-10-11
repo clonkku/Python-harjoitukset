@@ -115,7 +115,7 @@ def lepaa():
         print("zZzZzZzZ...")
         uniaika = uniaika - 1
 
-    if random.randint(1, 2) == 1:
+#Ensimmäinen pelin lopetus
         print("Heräsit kesken yön oksentamaan ja tunsit itsesi sairaaksi. :(")
         time.sleep(2)
         print("Sairastuit ja päätit lähteä mökistä. Peli päättyi...")
@@ -317,32 +317,32 @@ while True:
     elif pelaaja.sijainti == viimeinen_huone:
         print("1. Tutki huonetta")
         print("2. Avaa kirjekuori")
-        print("3. Lähde pois")
+        print("3. Lähde pois mökiltä")
 
     print("8. Näytä inventaario")
     print("9. Tallenna peli")
-    valinta = int(input("Valitse: "))
+    valinta = input("Valitse: ")
 
 #yleiset toiminnot
-    if valinta == 8:
+    if valinta == "8":
         inventaario()
-    elif valinta == 9:
+    elif valinta == "9":
         tallenna_peli()
 
 #pihan toiminnot
     elif pelaaja.sijainti == piha:
-        if valinta == 1:
+        if valinta == "1":
             if avaimet in pelaaja.esinelista:
                 print("Mökin ovi on lukossa. Sinulla on avaimet, joten avaat oven.")
                 pelaaja.liiku(eteinen)
             else:
                 print("Mökin ovi on lukossa. Sinulla ei ole avaimia, joilla mennä sisään.")
-        elif valinta == 2:
+        elif valinta == "2":
             print("Tutkit pihaa...")
             time.sleep(2)
             print("Pihalla ei näytä olevan mitään mielenkiintoista.")
             time.sleep(2)
-        elif valinta == 3:
+        elif valinta == "3":
             if avaimet not in pelaaja.esinelista:
                 print("Tutkit postilaatikkoa ja löysit avaimet mökkiin.")
                 print("Avaimet lisättiin inventaarioosi.")
@@ -350,16 +350,16 @@ while True:
             else:
                 print("Postilaatikko on tyhjä.")
             input("Paina enter jatkaaksesi...")
-        elif valinta == 4:
+        elif valinta == "4":
             pelaaja.liiku(vaja)
-        elif valinta == 5:
+        elif valinta == "5":
             pelaaja.liiku(takapiha)
         else:
             print("Virheellinen valinta.")
 
 #vajan toiminnot
     elif pelaaja.sijainti == vaja:
-        if valinta == 1:
+        if valinta == "1":
             print("Tutkit vajaa...")
             time.sleep(2)
             print("Vaja on täynnä vanhoja työkaluja joita ei voi edes käyttää enään.")
@@ -373,7 +373,7 @@ while True:
             time.sleep(2)
             print("Vajan pimeässä nurkassa on laatikko jonka päällä lukee 'KELLARIN HUOLTO'")
             input("Paina enter jatkaaksesi...")
-        elif valinta == 2:
+        elif valinta == "2":
             if huolto_avain in pelaaja.esinelista:
                 huolto_laatikko_avattu = True
                 print("Kaivat taskustasi huolto laatikon avaimen ja avaat laatikon.")
@@ -389,52 +389,52 @@ while True:
             else:
                 print("Laatikko on lukossa. Lukko näyttää vanhalta mutta melko tukevalta.")
                 input("Paina enter jatkaaksesi...")
-        elif valinta == 3:
+        elif valinta == "3":
             print("sanot 'pyh onpa likainen sorkkarauta' ja pyyhit sen pölystä ja ruosteesta. Se näyttää käyttökelpoiselta")
             time.sleep(1)
             pelaaja.keraa_esine()
-        elif valinta == 4:
+        elif valinta == "4":
             pelaaja.liiku(piha)
         else:
             print("Virheellinen valinta.")
 
 #eteisen toiminnot
     elif pelaaja.sijainti == eteinen:
-        if valinta == 1:
+        if valinta == "1":
             pelaaja.liiku(keittio)
-        elif valinta == 2:
+        elif valinta == "2":
             pelaaja.liiku(olohuone)
-        elif valinta == 3:
+        elif valinta == "3":
             print("Tutkit sähkökaappia...")
             time.sleep(2)
             print("Sähkökaappi on todella vanha.")
             print("Yksi sulake näyttää palaneelta")
             time.sleep(2)
-        elif valinta == 4:
+        elif valinta == "4":
             pelaaja.liiku(piha)
         else:
             print("Virheellinen valinta.")
 
 #olohuoneen toiminnot
     elif pelaaja.sijainti == olohuone:
-        if valinta == 1:
+        if valinta == "1":
             pelaaja.liiku(keittio)
-        elif valinta == 2:
+        elif valinta == "2":
             pelaaja.liiku(eteinen)
-        elif valinta == 3:
+        elif valinta == "3":
             pelaaja.liiku(makuuhuone)
-        elif valinta == 4:
+        elif valinta == "4":
             print("Tutkit vanhaa valokuvaa...")
             time.sleep(1)
             print("Kuvassa on vanha mökki ja sen edessä seisoo mies.")
             time.sleep(1)
             print("Kuvan takana lukee: 'Eino ja mökki, kesä 1995'")
-        elif valinta == 5:
+        elif valinta == "5":
             print("Nykäset kellarin ovea kovaa mutta ovi ei liikahdakaan.")
             print("Kellarin oveen on asennettu vahvistettu lukko. Et saa sitä auki ilman avainta.")
-        elif valinta == 6:
+        elif valinta == "6":
             pelaaja.keraa_esine()
-        elif valinta == 7:
+        elif valinta == "7":
             if vanha_vihko in pelaaja.esinelista:
                 print("Avasit vanhan vihkon...")
                 time.sleep(1)
@@ -465,7 +465,7 @@ while True:
 
 #makuuhuoneen toiminnot
     elif pelaaja.sijainti == makuuhuone:
-        if valinta == 1:
+        if valinta == "1":
             print("Tutkit makuuhuonetta...")
             time.sleep(1)
             print("Sänky on vanha ja pölyinen.")
@@ -473,13 +473,13 @@ while True:
             print("Yöpöydällä on kasa vanhoja papereita.")
             time.sleep(2)
             print("Maton alta pilkottaa jotain metallista.")
-        elif valinta == 2:
+        elif valinta == "2":
             lepaa()
-        elif valinta == 3:
+        elif valinta == "3":
             pelaaja.keraa_esine()
-        elif valinta == 4:
+        elif valinta == "4":
             pelaaja.liiku(olohuone)
-        elif valinta == 5 and huolto_laatikko_avattu:
+        elif valinta == "5" and huolto_laatikko_avattu:
             pohjapiirros_luettu = True
             print("Tutkit yöpöydän papereita... Suurin osa käsittelee vanhoja laskuja tai mökin huoltoa.")
             print("Yksi paperi kuitenkin kiinnittää huomiosi.")
@@ -491,7 +491,7 @@ while True:
 
 #takapihan toiminnot
     elif pelaaja.sijainti == takapiha:
-        if valinta == 1:
+        if valinta == "1":
             print("Tutkit mökin takapihaa...")
             time.sleep(2)
 
@@ -507,7 +507,7 @@ while True:
                 time.sleep(2)
                 print("Yksi kohta maan pinnassa näyttää kuitenkin oudolta.")
 
-        elif valinta == 2:
+        elif valinta == "2":
             if not luukku_löytynyt:
                 pelaaja.liiku(piha)
             elif luukku_löytynyt and not luukku_avattu:
@@ -537,7 +537,7 @@ while True:
                 time.sleep(2)
                 pelaaja.liiku(kellari)
 
-        elif valinta == 3:
+        elif valinta == "3":
             pelaaja.liiku(piha)
 
         else:
@@ -545,7 +545,7 @@ while True:
 
 # kellarin toiminnot
     elif pelaaja.sijainti == kellari:
-        if valinta == 1:
+        if valinta == "1":
             kellari_tutkittu = True
             print("Tutkit kellaria...")
             time.sleep(2)
@@ -560,7 +560,7 @@ while True:
             time.sleep(2)
             print("Joku on käynyt täällä hiljattain...")
 
-        elif valinta == 2:
+        elif valinta == "2":
             print("Tutkit vanhaa kellarin ovea...")
             time.sleep(2)
             print("Tämä on sama ovi, jota yritit avata olohuoneesta.")
@@ -573,7 +573,7 @@ while True:
             print("'Älä koskaan avaa tätä ovea.'")
             print("Mietit että miksi sisältäkään päin ovea ei saa avata..")
 
-        elif valinta == 3:
+        elif valinta == "3":
             if kellari_tutkittu:
                 print("Tutkit kellarin putkia...")
                 time.sleep(2)
@@ -596,7 +596,7 @@ while True:
             else:
                 print("Ehkä sinun pitäisi ensin tutkia kellaria tarkemmin.")
 
-        elif valinta == 4:
+        elif valinta == "4":
             print("Nouset takaisin portaita.")
             time.sleep(2)
             pelaaja.liiku(takapiha)
@@ -604,7 +604,52 @@ while True:
         else:
             print("Virheellinen valinta.")
 
-#Viimeisen huoneen toiminnot WIP
+#Viimeisen huoneen toiminnot
     elif pelaaja.sijainti == viimeinen_huone:
-        if valinta == 1:
-            print("Hups pääsitkin jo näin pitkälle...")
+        if valinta == "1":
+            print("Tutkit huonetta...")
+            time.sleep(2)
+            print("Huone on pieni ja pölyinen.")
+            print("Sen keskellä on vanha pöytä ja tuoli.")
+            time.sleep(2)
+            print("Pöydällä on kirjekuori.")
+            print(f"Kirjekuoren päällä lukee: {pelaaja.nimi}")
+            time.sleep(2)
+            print("Kirjekuori näyttää siltä, että joku on odottanut sinua.")
+            input("Paina Enter jatkaaksesi...")
+        elif valinta == "2":
+            print("Avaat kirjekuoren ja alat lukea...")
+            time.sleep(2)
+            print("'Jos luet tätä, olet löytänyt tien kellarin läpi.'")
+            time.sleep(2)
+            print("'Olen Eino. Tämä mökki kuului minulle vuosikymmeniä.'")
+            time.sleep(2)
+            print("'Kellarissa kuulemasi äänet eivät ole putkista.'")
+            time.sleep(2)
+            print("'En koskaan saanut selville, mitä vanhan oven takana on.'")
+            time.sleep(2)
+            print("'Yritin unohtaa koko asian, mutta en pystynyt enää asumaan mökissä.'")
+            time.sleep(2)
+            print("'Siksi jätin mökin sinulle. Ehkä sinä saat vastaukset, joita minä en saanut.'")
+            time.sleep(2)
+            print("Kirjeen lopussa on vielä yksi lause:")
+            print("'Älä avaa alkuperäistä kellarin ovea.'")
+            time.sleep(2)
+            print("Katseesi siirtyy kohti ovea.")
+            print("Jostain sen takaa kuuluu hiljainen koputus.")
+            time.sleep(2)
+            print("Klonk. Klonk. Klonk.")
+            time.sleep(2)
+            print("Päätät, että olet saanut tarpeeksi selville tältä päivältä.")
+            print("Peli päättyi.")
+            break
+        elif valinta == "3":
+            print("Päätät, ettei tämä mökki ole sinun ongelmasi.")
+            time.sleep(2)
+            print("Poistut mökistä ja jätät Einon salaisuuden taaksesi.")
+            time.sleep(2)
+            print("Et ehkä koskaan saa tietää, mitä kellarin oven takana on.")
+            print("Peli päättyi.")
+            break
+        else:
+            print("Virheellinen valinta.")
