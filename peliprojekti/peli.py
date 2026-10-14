@@ -143,7 +143,6 @@ alkutekstit_luettu = False
 
 # Luodaan huoneet
 eteinen = Huone("Eteinen", None)
-keittio = Huone("Keittiö", None)
 olohuone = Huone("Olohuone", vanha_vihko)
 makuuhuone = Huone("Makuuhuone", huolto_avain)
 vaja = Huone("Vaja", sorkkarauta)
@@ -175,8 +174,6 @@ if valinta == "2":
         pelaaja.sijainti = vaja
     elif sijainti == "Eteinen":
         pelaaja.sijainti = eteinen
-    elif sijainti == "Keittiö":
-        pelaaja.sijainti = keittio
     elif sijainti == "Olohuone":
         pelaaja.sijainti = olohuone
     elif sijainti == "Makuuhuone":
@@ -264,24 +261,18 @@ while True:
         print("5. Mene mökin takapihalle")
 
     elif pelaaja.sijainti == eteinen:
-        print("1. Mene keittiöön")
-        print("2. Mene olohuoneeseen")
-        print("3. Tutki sähkökaappia")
-        print("4. Mene takaisin pihalle")
-
-    elif pelaaja.sijainti == keittio:
-        print("1. Mene eteiseen")
-        print("2. Mene olohuoneeseen")
+        print("1. Mene olohuoneeseen")
+        print("2. Tutki sähkökaappia")
+        print("3. Mene takaisin pihalle")
 
     elif pelaaja.sijainti == olohuone:
-        print("1. Mene keittiöön")
-        print("2. Mene eteiseen")
-        print("3. Mene makuuhuoneeseen")
-        print("4. Tutki vanhaa valokuvaa")
-        print("5. Mene kellariin")
-        print("6. Kerää esine")
+        print("1. Mene eteiseen")
+        print("2. Mene makuuhuoneeseen")
+        print("3. Tutki vanhaa valokuvaa")
+        print("4. Mene kellariin")
+        print("5. Kerää esine")
         if vanha_vihko in pelaaja.esinelista:
-            print("7. Tutki vanhaa vihkoa")
+            print("6. Tutki vanhaa vihkoa")
 
     elif pelaaja.sijainti == makuuhuone:
         print("1. Tutki makuuhuonetta")
@@ -401,16 +392,14 @@ while True:
 #eteisen toiminnot
     elif pelaaja.sijainti == eteinen:
         if valinta == "1":
-            pelaaja.liiku(keittio)
-        elif valinta == "2":
             pelaaja.liiku(olohuone)
-        elif valinta == "3":
+        elif valinta == "2":
             print("Tutkit sähkökaappia...")
             time.sleep(2)
             print("Sähkökaappi on todella vanha.")
             print("Yksi sulake näyttää palaneelta")
             time.sleep(2)
-        elif valinta == "4":
+        elif valinta == "3":
             pelaaja.liiku(piha)
         else:
             print("Virheellinen valinta.")
@@ -418,23 +407,21 @@ while True:
 #olohuoneen toiminnot
     elif pelaaja.sijainti == olohuone:
         if valinta == "1":
-            pelaaja.liiku(keittio)
-        elif valinta == "2":
             pelaaja.liiku(eteinen)
-        elif valinta == "3":
+        elif valinta == "2":
             pelaaja.liiku(makuuhuone)
-        elif valinta == "4":
+        elif valinta == "3":
             print("Tutkit vanhaa valokuvaa...")
             time.sleep(1)
             print("Kuvassa on vanha mökki ja sen edessä seisoo mies.")
             time.sleep(1)
             print("Kuvan takana lukee: 'Eino ja mökki, kesä 1995'")
-        elif valinta == "5":
+        elif valinta == "4":
             print("Nykäset kellarin ovea kovaa mutta ovi ei liikahdakaan.")
             print("Kellarin oveen on asennettu vahvistettu lukko. Et saa sitä auki ilman avainta.")
-        elif valinta == "6":
+        elif valinta == "5":
             pelaaja.keraa_esine()
-        elif valinta == "7":
+        elif valinta == "6":
             if vanha_vihko in pelaaja.esinelista:
                 print("Avasit vanhan vihkon...")
                 time.sleep(1)
